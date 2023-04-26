@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-    <title>Admin Panel</title>
+    <title>Silent Party - Admin Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <meta https-equiv="Content-Security-Policy" content="default-src *;" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -11,65 +13,71 @@
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href='/css/bootstrap/bootstrap.min.css'>
 </head>
 <body>
 
-<h1>Admin panel</h1>
-<p>
-    <audio id="audio" autoplay controls>
-        <source type="audio/mpeg" class="audio-source">
-        Your browser does not support the audio element.
-    </audio>
-</p>
+<div class='container'>
+    <h1>Admin panel</h1>
+    <p>
+        <audio id="audio" autoplay controls>
+            <source type="audio/mpeg" class="audio-source">
+            Your browser does not support the audio element.
+        </audio>
+    </p>
 
-
-<img src="<%= qrCode %>" alt="QR Code">
-<h5><%= url %></h5>
-
-<table class="table m-0">
-    <thead>
-    <tr>
-        <th>image</th>
-        <th>name</th>
-        <th>artist</th>
-        <th>size</th>
-        <th>duration</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% musicsInfo.forEach((music)=>{ %>
-        <tr onclick="play(`<%= music.name; %>`)">
-            <% if(music.image){ %>
-                <td>
-                    <img src="data:<%= music.image.mime; %>;base64,<%= music.image.imageBuffer.toString('base64'); %>"
-                         alt="<%= music.image.description; %>" width="50" height="50" />
-                </td>
-            <% }else{ %>
-                <td>
-                    <img src="#" width="50" height="50" />
-                </td>
-            <% } %>
-            <td><%= music.name; %></td>
-            <td><%= music.artist; %></td>
-            <td><%= music.size; %></td>
-            <td><%= music.duration; %></td>
-        </tr>
-    <% }); %>
-    </tbody>
-</table>
-
-<form action="/upload" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="audio">Select an audio file:</label>
-        <input type="file" id="audio" name="audio">
+    <img src="<%= qrCode %>" alt="QR Code">
+    <h5><%= url %></h5>
+    <div class='row'>
+        <div class="col-9">
+            <table class="table table-striped">
+                <thead>
+                <tr class='text-center'>
+                    <th>image</th>
+                    <th>name</th>
+                    <th>artist</th>
+                    <th>size</th>
+                    <th>duration</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <% musicsInfo.forEach((music)=>{ %>
+                    <tr onclick="play(`<%= music.name; %>`)">
+                        <% if(music.image){ %>
+                            <td>
+                                <img src="data:<%= music.image.mime; %>;base64,<%= music.image.imageBuffer.toString('base64'); %>"
+                                     alt="<%= music.image.description; %>" width="50" height="50" />
+                            </td>
+                        <% }else{ %>
+                            <td>
+                                <img src="#" width="50" height="50" />
+                            </td>
+                        <% } %>
+                        <td><%= music.name; %></td>
+                        <td><%= music.artist; %></td>
+                        <td><%= music.size; %> mb</td>
+                        <td><%= music.duration; %></td>
+                    </tr>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div>
-        <input type="submit" value="Upload">
-    </div>
-</form>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="audio">Select an audio file:</label>
+            <input type="file" id="audio" name="audio">
+        </div>
+        <div>
+            <input type="submit" value="Upload">
+        </div>
+    </form>
+</div>
 
 </body>
 <script src="/js/jquery.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/admin/admin.js"></script>
 </html>
