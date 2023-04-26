@@ -2,10 +2,13 @@ import express from 'express';
 import { NotFoundError, ErrorHandlerMiddleware } from 'irolegroup';
 import MainController from '../controllers/Main.controller';
 import AdminController from '../controllers/Admin.controller';
+import { multerMiddleware } from '../middlewares/multerMiddleware';
 
 const router = express.Router();
 
 router.get('/', MainController.index);
+// upload musics
+router.post('/upload', multerMiddleware, MainController.upload);
 // admin
 router.get('/admin', AdminController.index);
 

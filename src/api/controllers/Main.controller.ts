@@ -9,6 +9,14 @@ class MainController extends Controller {
             next(e);
         }
     }
+
+    async upload(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.redirect('/admin');
+        } catch (e: any) {
+            next(e);
+        }
+    }
 }
 
 export default new MainController();
