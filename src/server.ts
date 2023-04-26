@@ -4,6 +4,8 @@ import debug0 from 'debug';
 
 import { logger } from './config/logger';
 import { App } from './app';
+import { Server as IOServer } from 'socket.io';
+import * as fs from 'fs';
 
 export class Server {
     port: number = Config.server.port;
@@ -12,6 +14,8 @@ export class Server {
 
     constructor() {
         this.setServer();
+        this.checkDirectory();
+        this.socketSetup();
     }
 
     setServer() {
@@ -23,6 +27,29 @@ export class Server {
             logger.info(`Server listening on port: ${this.port} Mode = ${Config.server.environment}`);
         });
         this.server.on('error', this.onError);
+    }
+
+    socketSetup() {
+        const io = new IOServer(this.server);
+        io.on('connection', (socket) => {
+            socket.on('disconnect', () => {
+                //console.log('user disconnected');
+            });
+        });
+    }
+
+    checkDirectory() {
+        const musicDirectoryPath = './musics';
+        // Check if the directory already exists
+        if (fs.existsSync('./musics')) return;
+
+        // If the directory doesn't exist, create it
+        fs.mkdir(musicDirectoryPath, { recursive: true }, (err) => {
+            if (err) {
+                logger.info('Failed to create directory');
+            }
+            logger.info('Music directory created successfully!');
+        });
     }
 
     /**

@@ -2,9 +2,9 @@ import Controller from './Controller';
 import { Response, Request, NextFunction } from 'express';
 
 class MainController extends Controller {
-    async main(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async index(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            return res.json('ok');
+            return res.render('index');
         } catch (e: any) {
             next(e);
         }
