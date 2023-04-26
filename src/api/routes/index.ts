@@ -7,6 +7,8 @@ import { multerMiddleware } from '../middlewares/multerMiddleware';
 const router = express.Router();
 
 router.get('/', MainController.index);
+// Stream
+router.get('/stream/:music', MainController.stream);
 // upload musics
 router.post('/upload', multerMiddleware, MainController.upload);
 // admin

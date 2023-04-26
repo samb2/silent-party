@@ -14,6 +14,7 @@ import { router } from './api/routes';
 import { morganMiddleware } from './config/logger';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
+import favicon from 'serve-favicon';
 
 export class App {
     public app;
@@ -31,6 +32,9 @@ export class App {
         this.app.set('view engine', 'ejs');
         // Set Directory for View Engine
         this.app.set('views', path.resolve('./resource/views'));
+
+        // Serve the favicon
+        this.app.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')));
 
         if (process.env.NODE_ENV !== 'test') {
             this.app.use(morganMiddleware);
