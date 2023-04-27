@@ -31,7 +31,29 @@ export class Server {
 
     socketSetup() {
         const io = new IOServer(this.server);
+
+        let isPlaying = false;
+
         io.on('connection', (socket) => {
+            // ---------------- Admin ----------------
+            socket.on('admin:selectMusic', (musicName) => {
+                console.log('admin:selectMusic');
+                isPlaying = true;
+                io.emit('client:playSelectedSong', musicName);
+            });
+
+            socket.on('admin:playButton', () => {
+                if (!isPlaying) {
+                    console.log('admin:playButton');
+                }
+            });
+
+            socket.on('admin:pauseButton', (musicInfo) => {
+                isPlaying = false;
+                console.log(musicInfo);
+            });
+
+            // ---------------- client ---------------
             socket.on('disconnect', () => {
                 //console.log('user disconnected');
             });
