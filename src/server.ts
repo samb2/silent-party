@@ -35,28 +35,28 @@ export class Server {
         const io = new IOServer(this.server);
 
         let isPlaying = false;
+        let currentTime;
 
         io.on('connection', (socket) => {
             // ---------------- Admin ----------------
             socket.on('admin:selectMusic', (musicName) => {
-                console.log('admin:selectMusic');
                 isPlaying = true;
                 io.emit('client:playSelectedSong', musicName);
             });
 
             socket.on('admin:playButton', () => {
                 if (!isPlaying) {
-                    console.log('admin:playButton');
+                    isPlaying = true;
+                    io.emit('client:playButton');
                 }
             });
 
-            socket.on('admin:pauseButton', (musicInfo) => {
+            socket.on('admin:pauseButton', () => {
                 isPlaying = false;
-                console.log(musicInfo);
+                io.emit('client:pauseButton');
             });
 
             socket.on('admin:songEnded', (musicName) => {
-                console.log('admin:songEnded');
                 isPlaying = false;
                 const nextMusicName = queue.nextSong(musicName);
                 io.emit('admin:playNextSong', nextMusicName);

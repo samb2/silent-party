@@ -19,10 +19,12 @@ class Queue {
     }
 
     addTrack(musicName) {
-        this.getTracks().push(musicName);
-        const sortedArr = _.sortBy(this.getTracks());
-        this.setTracks(sortedArr);
-        console.log('addTrack', this.getTracks());
+        if (!this.getTracks().includes(musicName)) {
+            this.getTracks().push(musicName);
+            const sortedArr = _.sortBy(this.getTracks());
+            this.setTracks(sortedArr);
+            console.log('addTrack', this.getTracks());
+        }
     }
 
     tracksCount() {

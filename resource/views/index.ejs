@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Silent Party</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta https-equiv="Content-Security-Policy" content="default-src *;" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href='/css/bootstrap/bootstrap.min.css'>
+</head>
+<body>
+
+<div class='container-fluid'>
+    <button onclick='loadTracks()' class='btn btn-lg'>Click me!</button>
+    <p>
+        <audio id="audio" autoplay>
+            <source type="audio/mpeg" class="audio-source">
+            Your browser does not support the audio element.
+        </audio>
+    </p>
+
+    <div class="container-fluid">
+        <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
+            <div class="bg-body-tertiary border rounded-3">
+                <br><br><br><br><br><br><br><br><br><br>
+            </div>
+            <div class="bg-body-tertiary border rounded-3">
+                <br><br><br><br><br><br><br><br><br><br>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/client/client.js"></script>
+</html>

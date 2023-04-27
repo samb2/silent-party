@@ -6,7 +6,7 @@ function play(musicName) {
         musicName = `${musicName}.mp3`;
     }
     audio.src = `/stream/${musicName}`;
-    socket.emit('admin:selectMusic', { musicName });
+    socket.emit('admin:selectMusic', musicName);
     audio.play();
 }
 
@@ -15,11 +15,10 @@ audio.addEventListener('play', function () {
 });
 
 audio.addEventListener('pause', function () {
-    const musicInfo = {
-        //src: audio.src,
-        currentTime: audio.currentTime,
-    };
-    socket.emit('admin:pauseButton', musicInfo);
+    // const musicInfo = {
+    //     currentTime: audio.currentTime,
+    // };
+    socket.emit('admin:pauseButton');
     audio.pause();
 });
 

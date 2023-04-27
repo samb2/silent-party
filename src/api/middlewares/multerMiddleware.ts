@@ -19,4 +19,4 @@ const fileFilter = function (req, file, cb) {
     }
 };
 
-export const multerMiddleware = multer({ storage: storage, fileFilter: fileFilter }).single('audio');
+export const multerMiddleware = multer({ storage: storage, fileFilter }).single('audio');
