@@ -86,11 +86,13 @@ export class Server {
     loadTracks() {
         queue.loadTracks();
         const tracksCount = queue.tracksCount();
-        if (tracksCount > 1) {
-            logger.info(`${tracksCount} Tracks Loaded!`);
-        } else {
-            logger.info(`${tracksCount} Track Loaded!`);
-        }
+        setTimeout(() => {
+            if (tracksCount > 1) {
+                logger.info(`${tracksCount} Tracks Loaded!`);
+            } else {
+                logger.info(`${tracksCount} Track Loaded!`);
+            }
+        }, 1000);
     }
 
     /**

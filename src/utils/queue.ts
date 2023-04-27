@@ -1,20 +1,27 @@
 import fs from 'fs';
+import _ from 'underscore';
 
 class Queue {
     directory = process.cwd() + '/musics/';
     tracks: any = [];
 
     loadTracks() {
-        this.tracks = fs.readdirSync(this.directory);
-        console.log('loadTracks', this.getTracks());
+        this.setTracks(fs.readdirSync(this.directory));
+        //console.log('loadTracks', this.getTracks());
     }
 
     getTracks() {
         return this.tracks;
     }
 
+    setTracks(tracks) {
+        this.tracks = tracks;
+    }
+
     addTrack(musicName) {
-        this.tracks.push(musicName);
+        this.getTracks().push(musicName);
+        const sortedArr = _.sortBy(this.getTracks());
+        this.setTracks(sortedArr);
         console.log('addTrack', this.getTracks());
     }
 
