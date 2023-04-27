@@ -2,6 +2,7 @@ import Controller from './Controller';
 import { Response, Request, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
+import queue from '../../utils/queue';
 
 class MainController extends Controller {
     async index(req: Request, res: Response, next: NextFunction): Promise<any> {

@@ -6,6 +6,7 @@ import { logger } from './config/logger';
 import { App } from './app';
 import { Server as IOServer } from 'socket.io';
 import * as fs from 'fs';
+import queue from './utils/queue';
 
 export class Server {
     port: number = Config.server.port;
@@ -16,6 +17,7 @@ export class Server {
         this.setServer();
         this.checkDirectory();
         this.socketSetup();
+        this.loadTracks();
     }
 
     setServer() {
@@ -53,6 +55,13 @@ export class Server {
                 console.log(musicInfo);
             });
 
+            socket.on('admin:songEnded', (musicName) => {
+                console.log('admin:songEnded');
+                isPlaying = false;
+                const nextMusicName = queue.nextSong(musicName);
+                io.emit('admin:playNextSong', nextMusicName);
+            });
+
             // ---------------- client ---------------
             socket.on('disconnect', () => {
                 //console.log('user disconnected');
@@ -72,6 +81,16 @@ export class Server {
             }
             logger.info('Music directory created successfully!');
         });
+    }
+
+    loadTracks() {
+        queue.loadTracks();
+        const tracksCount = queue.tracksCount();
+        if (tracksCount > 1) {
+            logger.info(`${tracksCount} Tracks Loaded!`);
+        } else {
+            logger.info(`${tracksCount} Track Loaded!`);
+        }
     }
 
     /**

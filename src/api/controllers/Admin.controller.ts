@@ -3,20 +3,20 @@ import { Response, Request, NextFunction } from 'express';
 import fs from 'fs';
 import getMP3Duration from 'get-mp3-duration';
 import NodeID3 from 'node-id3';
+import queue from '../../utils/queue';
 
 class AdminController extends Controller {
     async index(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             // ------------ Generate QR Code ------------
             const { qrCode, url } = await this.qrCodeGenerator();
-            // ------------ Set Directory ---------------
-            const directory = process.cwd() + '/musics/';
-            const files = fs.readdirSync(directory);
+            // ------------ get Tracks ---------------
+            const files = queue.getTracks();
 
             const musicsInfo: any = [];
 
             for (const file of files) {
-                const filePath = `${directory}${file}`;
+                const filePath = `${queue.getDirectory()}${file}`;
                 const stats = fs.statSync(filePath);
                 const buffer = fs.readFileSync(filePath);
 
