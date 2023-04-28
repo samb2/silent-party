@@ -2,8 +2,12 @@ const socket = io();
 const audio = document.getElementById('audio');
 
 function loadTracks() {
-    console.log('load');
     audio.load();
+    checkPLaying();
+}
+
+function checkPLaying() {
+    socket.emit('client:checkPlaying');
 }
 
 socket.on('client:playSelectedSong', function (musicName) {
@@ -17,12 +21,10 @@ socket.on('client:pauseButton', function () {
 
 socket.on('client:playButton', function () {
     audio.play();
-    //const byteRange = `bytes=${Math.floor(data.currentTime)}-`;
-    // if (data.currentTime > 0) {
-    //     audio.src = `/stream/${data.musicName.music}`;
-    //     audio.currentTime = data.currentTime;
-    //     audio.play();
-    // } else {
-    //     audio.play();
-    // }
+});
+
+socket.on('client:playIsPlayingSong', function (musicInfo) {
+    audio.src = `/stream/${musicInfo.musicName}`;
+    audio.currentTime = musicInfo.currentTime;
+    audio.play();
 });

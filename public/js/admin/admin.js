@@ -10,27 +10,36 @@ function play(musicName) {
     audio.play();
 }
 
+function getMusicName(src) {
+    let musicName = src.split('/').pop();
+    musicName = musicName.replace(/%20/g, ' ');
+    return musicName;
+}
+
 audio.addEventListener('play', function () {
     socket.emit('admin:playButton');
 });
 
 audio.addEventListener('pause', function () {
-    // const musicInfo = {
-    //     currentTime: audio.currentTime,
-    // };
-    socket.emit('admin:pauseButton');
+    const musicInfo = {
+        currentTime: audio.currentTime,
+        musicName: getMusicName(audio.src),
+    };
+    socket.emit('admin:pauseButton', musicInfo);
     audio.pause();
 });
 
 audio.addEventListener('ended', function () {
     // code to run when the audio has ended
-    const src = audio.src;
-    let musicName = src.split('/').pop();
-    musicName = musicName.replace(/%20/g, ' ');
-    console.log('music ended!', musicName);
+    const musicName = getMusicName(audio.src);
     socket.emit('admin:songEnded', musicName);
 });
 
 socket.on('admin:playNextSong', function (nextMusicName) {
     play(nextMusicName);
+});
+
+socket.on('admin:getCurrentTime', function () {
+    const currentTime = audio.currentTime;
+    socket.emit('admin:setCurrentTime', currentTime);
 });

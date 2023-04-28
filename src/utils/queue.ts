@@ -3,11 +3,13 @@ import _ from 'underscore';
 
 class Queue {
     directory = process.cwd() + '/musics/';
-    tracks: any = [];
+    tracks: string[] = [];
+    playingTrack: string = '';
+    isPLaying: boolean = false;
+    currentTime: number = 0;
 
     loadTracks() {
         this.setTracks(fs.readdirSync(this.directory));
-        //console.log('loadTracks', this.getTracks());
     }
 
     getTracks() {
@@ -23,7 +25,6 @@ class Queue {
             this.getTracks().push(musicName);
             const sortedArr = _.sortBy(this.getTracks());
             this.setTracks(sortedArr);
-            console.log('addTrack', this.getTracks());
         }
     }
 
@@ -39,12 +40,34 @@ class Queue {
         const musicNameIndex = this.getTracks().indexOf(musicName);
         if (musicNameIndex < this.tracksCount() - 1) {
             const nextTrackIndex = musicNameIndex + 1;
-            console.log(this.tracks[nextTrackIndex]);
             return this.tracks[nextTrackIndex];
         }
         const nextTrackIndex = 0;
-        console.log(this.tracks[nextTrackIndex]);
         return this.tracks[nextTrackIndex];
+    }
+
+    setPlayingTrack(value: string): void {
+        this.playingTrack = value;
+    }
+
+    getPlayingTrack(): string {
+        return this.playingTrack;
+    }
+
+    setIsPLaying(value: boolean): void {
+        this.isPLaying = value;
+    }
+
+    getIsPLaying(): boolean {
+        return this.isPLaying;
+    }
+
+    setCurrentTime(value: number): void {
+        this.currentTime = value;
+    }
+
+    getCurrentTime(): number {
+        return this.currentTime;
     }
 }
 

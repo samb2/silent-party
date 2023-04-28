@@ -34,35 +34,53 @@ export class Server {
     socketSetup() {
         const io = new IOServer(this.server);
 
-        let isPlaying = false;
-        let currentTime;
+        // let isPlaying = false;
+        // let currentTime;
 
         io.on('connection', (socket) => {
             // ---------------- Admin ----------------
             socket.on('admin:selectMusic', (musicName) => {
-                isPlaying = true;
+                queue.setIsPLaying(true);
+                queue.setPlayingTrack(musicName);
                 io.emit('client:playSelectedSong', musicName);
             });
 
             socket.on('admin:playButton', () => {
-                if (!isPlaying) {
-                    isPlaying = true;
+                if (!queue.getIsPLaying()) {
+                    queue.setIsPLaying(true);
                     io.emit('client:playButton');
                 }
             });
 
-            socket.on('admin:pauseButton', () => {
-                isPlaying = false;
+            socket.on('admin:pauseButton', (musicInfo) => {
+                queue.setIsPLaying(false);
+                queue.setCurrentTime(musicInfo.currentTime);
+                queue.setPlayingTrack(musicInfo.musicName);
                 io.emit('client:pauseButton');
             });
 
             socket.on('admin:songEnded', (musicName) => {
-                isPlaying = false;
+                queue.setIsPLaying(false);
                 const nextMusicName = queue.nextSong(musicName);
                 io.emit('admin:playNextSong', nextMusicName);
             });
 
+            socket.on('admin:setCurrentTime', (currentTime) => {
+                queue.setCurrentTime(currentTime);
+                const musicInfo = {
+                    musicName: queue.getPlayingTrack(),
+                    currentTime: queue.getCurrentTime(),
+                };
+                io.emit('client:playIsPlayingSong', musicInfo);
+            });
+
             // ---------------- client ---------------
+            socket.on('client:checkPlaying', () => {
+                if (queue.getIsPLaying()) {
+                    io.emit('admin:getCurrentTime');
+                }
+            });
+
             socket.on('disconnect', () => {
                 //console.log('user disconnected');
             });
