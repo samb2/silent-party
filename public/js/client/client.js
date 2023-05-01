@@ -1,6 +1,16 @@
 const socket = io();
 const audio = document.getElementById('audio');
 
+function usernamePrompt() {
+    let username = prompt('Please enter your username');
+    if (username != null && username !== '') {
+        socket.emit('users:addUser', username);
+        loadTracks();
+    } else {
+        usernamePrompt();
+    }
+}
+
 function loadTracks() {
     audio.load();
     checkPLaying();

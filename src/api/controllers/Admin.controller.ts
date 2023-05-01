@@ -1,12 +1,15 @@
 import Controller from './Controller';
 import { Response, Request, NextFunction } from 'express';
+import users from '../../utils/users';
 
 class AdminController extends Controller {
     async index(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             const { url, musicsInfo, qrCode } = await this.getMusicsInfo();
 
-            return res.render('admin', { qrCode, url, musicsInfo });
+            const allUser = users.getUsers();
+
+            return res.render('admin', { qrCode, url, musicsInfo, allUser });
         } catch (e: any) {
             next(e);
         }

@@ -1,5 +1,6 @@
 const socket = io();
 const audio = document.getElementById('audio');
+const users = document.getElementById('users');
 
 function play(musicName) {
     if (musicName.split('.').pop() !== 'mp3') {
@@ -42,4 +43,12 @@ socket.on('admin:playNextSong', function (nextMusicName) {
 socket.on('admin:getCurrentTime', function () {
     const currentTime = audio.currentTime;
     socket.emit('admin:setCurrentTime', currentTime);
+});
+
+socket.on('admin:addNewUser', function (userInfo) {
+    $('#users').append(`<p id='${userInfo.id}'>${userInfo.username}</p>`);
+});
+
+socket.on('admin:deleteUser', function (userId) {
+    $('#' + userId).remove();
 });

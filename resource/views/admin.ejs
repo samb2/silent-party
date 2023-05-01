@@ -63,8 +63,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="bg-body-tertiary border rounded-3">
-                <br><br><br><br><br><br><br><br><br><br>
+            <div id='users' class="bg-body-tertiary border rounded-3 p-2">
+                <% allUser.forEach(user=>{ %>
+                    <p id='<%= user.id %>'> <%= user.username %></p>
+                <% }) %>
             </div>
 
         </div>

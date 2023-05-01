@@ -7,6 +7,7 @@ import { App } from './app';
 import { Server as IOServer } from 'socket.io';
 import * as fs from 'fs';
 import queue from './utils/queue';
+import users from './utils/users';
 
 export class Server {
     port: number = Config.server.port;
@@ -38,6 +39,13 @@ export class Server {
         // let currentTime;
 
         io.on('connection', (socket) => {
+            // ---------------- users ----------------
+            socket.on('users:addUser', (username) => {
+                const id: string = socket.id;
+                users.setUser({ id, username });
+                io.emit('admin:addNewUser', { id, username });
+            });
+
             // ---------------- Admin ----------------
             socket.on('admin:selectMusic', (musicName) => {
                 queue.setIsPLaying(true);
@@ -82,7 +90,8 @@ export class Server {
             });
 
             socket.on('disconnect', () => {
-                //console.log('user disconnected');
+                users.deleteUser(socket.id);
+                io.emit('admin:deleteUser', socket.id);
             });
         });
     }
