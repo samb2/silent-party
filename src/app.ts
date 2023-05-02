@@ -25,7 +25,7 @@ export class App {
         this.setRoutes();
     }
 
-    setConfig() {
+    setConfig(): void {
         // Set Public Directory
         this.app.use(express.static('public'));
         // Set View Engine
@@ -49,7 +49,7 @@ export class App {
         this.app.use(bodyParser.urlencoded({ extended: true }));
     }
 
-    setRoutes() {
+    setRoutes(): void {
         this.app.use(router);
     }
 }

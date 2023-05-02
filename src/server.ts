@@ -21,7 +21,7 @@ export class Server {
         this.loadTracks();
     }
 
-    setServer() {
+    setServer(): void {
         /**
          * Create HTTP server.
          */
@@ -32,48 +32,48 @@ export class Server {
         this.server.on('error', this.onError);
     }
 
-    socketSetup() {
-        const io = new IOServer(this.server);
+    socketSetup(): void {
+        const io: any = new IOServer(this.server);
 
         // let isPlaying = false;
         // let currentTime;
 
-        io.on('connection', (socket) => {
+        io.on('connection', (socket): void => {
             // ---------------- users ----------------
-            socket.on('users:addUser', (username) => {
+            socket.on('users:addUser', (username): void => {
                 const id: string = socket.id;
                 users.setUser({ id, username });
                 io.emit('admin:addNewUser', { id, username });
             });
 
             // ---------------- Admin ----------------
-            socket.on('admin:selectMusic', (musicName) => {
+            socket.on('admin:selectMusic', (musicName): void => {
                 queue.setIsPLaying(true);
                 queue.setPlayingTrack(musicName);
                 io.emit('client:playSelectedSong', musicName);
             });
 
-            socket.on('admin:playButton', () => {
+            socket.on('admin:playButton', (): void => {
                 if (!queue.getIsPLaying()) {
                     queue.setIsPLaying(true);
                     io.emit('client:playButton');
                 }
             });
 
-            socket.on('admin:pauseButton', (musicInfo) => {
+            socket.on('admin:pauseButton', (musicInfo): void => {
                 queue.setIsPLaying(false);
                 queue.setCurrentTime(musicInfo.currentTime);
                 queue.setPlayingTrack(musicInfo.musicName);
                 io.emit('client:pauseButton');
             });
 
-            socket.on('admin:songEnded', (musicName) => {
+            socket.on('admin:songEnded', (musicName): void => {
                 queue.setIsPLaying(false);
-                const nextMusicName = queue.nextSong(musicName);
+                const nextMusicName: string = queue.nextSong(musicName);
                 io.emit('admin:playNextSong', nextMusicName);
             });
 
-            socket.on('admin:setCurrentTime', (currentTime) => {
+            socket.on('admin:setCurrentTime', (currentTime): void => {
                 queue.setCurrentTime(currentTime);
                 const musicInfo = {
                     musicName: queue.getPlayingTrack(),
@@ -83,26 +83,26 @@ export class Server {
             });
 
             // ---------------- client ---------------
-            socket.on('client:checkPlaying', () => {
+            socket.on('client:checkPlaying', (): void => {
                 if (queue.getIsPLaying()) {
                     io.emit('admin:getCurrentTime');
                 }
             });
 
-            socket.on('disconnect', () => {
+            socket.on('disconnect', (): void => {
                 users.deleteUser(socket.id);
                 io.emit('admin:deleteUser', socket.id);
             });
         });
     }
 
-    checkDirectory() {
+    checkDirectory(): void {
         const musicDirectoryPath = './musics';
         // Check if the directory already exists
         if (fs.existsSync('./musics')) return;
 
         // If the directory doesn't exist, create it
-        fs.mkdir(musicDirectoryPath, { recursive: true }, (err) => {
+        fs.mkdir(musicDirectoryPath, { recursive: true }, (err): void => {
             if (err) {
                 logger.info('Failed to create directory');
             }
@@ -110,7 +110,7 @@ export class Server {
         });
     }
 
-    loadTracks() {
+    loadTracks(): void {
         queue.loadTracks();
         const tracksCount = queue.tracksCount();
         setTimeout(() => {
@@ -125,12 +125,12 @@ export class Server {
     /**
      * Event listener for HTTP server "error" event.
      */
-    onError(error: any) {
+    onError(error: any): void {
         if (error.syscall !== 'listen') {
             throw error;
         }
 
-        const bind = `Port ${this.port}`;
+        const bind: string = `Port ${this.port}`;
 
         // handle specific listen errors with friendly messages
         switch (error.code) {

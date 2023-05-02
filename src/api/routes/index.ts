@@ -1,10 +1,10 @@
-import express from 'express';
+import express, { Router } from 'express';
 import { NotFoundError, ErrorHandlerMiddleware } from 'irolegroup';
 import MainController from '../controllers/Main.controller';
 import AdminController from '../controllers/Admin.controller';
 import { multerMiddleware } from '../middlewares/multerMiddleware';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.get('/', MainController.index);
 // Stream
@@ -15,7 +15,7 @@ router.post('/upload', multerMiddleware, MainController.upload);
 router.get('/admin', AdminController.index);
 
 // Error 404
-router.all('*', () => {
+router.all('*', (): void => {
     throw new NotFoundError();
 });
 router.use(ErrorHandlerMiddleware);

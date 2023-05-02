@@ -2,44 +2,44 @@ import fs from 'fs';
 import _ from 'underscore';
 
 class Queue {
-    directory = process.cwd() + '/musics/';
+    directory: string = process.cwd() + '/musics/';
     tracks: string[] = [];
     playingTrack: string = '';
     isPLaying: boolean = false;
     currentTime: number = 0;
 
-    loadTracks() {
+    loadTracks(): void {
         this.setTracks(fs.readdirSync(this.directory));
     }
 
-    getTracks() {
+    getTracks(): string[] {
         return this.tracks;
     }
 
-    setTracks(tracks) {
+    setTracks(tracks): void {
         this.tracks = tracks;
     }
 
-    addTrack(musicName) {
+    addTrack(musicName): void {
         if (!this.getTracks().includes(musicName)) {
             this.getTracks().push(musicName);
-            const sortedArr = _.sortBy(this.getTracks());
+            const sortedArr: string[] = _.sortBy(this.getTracks());
             this.setTracks(sortedArr);
         }
     }
 
-    tracksCount() {
+    tracksCount(): number {
         return this.getTracks().length;
     }
 
-    getDirectory() {
+    getDirectory(): string {
         return this.directory;
     }
 
-    nextSong(musicName) {
-        const musicNameIndex = this.getTracks().indexOf(musicName);
+    nextSong(musicName): string {
+        const musicNameIndex: number = this.getTracks().indexOf(musicName);
         if (musicNameIndex < this.tracksCount() - 1) {
-            const nextTrackIndex = musicNameIndex + 1;
+            const nextTrackIndex: number = musicNameIndex + 1;
             return this.tracks[nextTrackIndex];
         }
         const nextTrackIndex = 0;

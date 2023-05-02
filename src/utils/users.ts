@@ -3,7 +3,7 @@ import _ from 'underscore';
 class Users {
     users: any = [];
 
-    setUser(userInfo: object) {
+    setUser(userInfo: object): void {
         this.users.push(userInfo);
     }
 
@@ -11,7 +11,7 @@ class Users {
         return this.users;
     }
 
-    deleteUser(socketId) {
+    deleteUser(socketId): void {
         this.users = _.without(
             this.getUsers(),
             _.findWhere(this.getUsers(), {

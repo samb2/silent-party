@@ -2,8 +2,8 @@ import winston from 'winston';
 import winstonDailyRotateFile from 'winston-daily-rotate-file';
 import morgan from 'morgan';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-const isDebug = process.env.DEBUG === 'true';
+const isDevelopment:boolean = process.env.NODE_ENV === 'development';
+const isDebug:boolean = process.env.DEBUG === 'true';
 const level = isDebug ? 'debug' : 'info';
 
 // Set up a custom Winston format that logs the timestamp, level, message, and any additional properties as JSON
