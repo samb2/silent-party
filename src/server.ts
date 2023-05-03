@@ -88,6 +88,14 @@ export class Server {
                     io.emit('admin:getCurrentTime');
                 }
             });
+            // ----------- chat messages -------------
+            socket.on('chat message', (msg) => {
+                console.log(`Received message from ${socket.id}: ${msg}`);
+                const username = users.getUsernameWithId(socket.id);
+
+                // Broadcast the message to all connected clients
+                io.emit('chat message', { username, msg });
+            });
 
             socket.on('disconnect', (): void => {
                 users.deleteUser(socket.id);

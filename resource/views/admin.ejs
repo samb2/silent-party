@@ -26,8 +26,8 @@
         </audio>
     </p>
 
-    <img src="<%= qrCode %>" alt="QR Code">
-    <h5><%= url %></h5>
+    <img src="<%= qrCode; %>" alt="QR Code">
+    <h5><%= url; %></h5>
     <div class="container-fluid">
         <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
             <div class="bg-body-tertiary border rounded-3">
@@ -67,7 +67,13 @@
                 <% allUser.forEach(user=>{ %>
                     <p id='<%= user.id %>'> <%= user.username %></p>
                 <% }) %>
+                <hr>
+
             </div>
+            <div class='container p-3 m-2'>
+                <div id="messages"></div>
+            </div>
+
 
         </div>
     </div>

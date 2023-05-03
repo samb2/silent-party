@@ -19,6 +19,14 @@ class Users {
             }),
         );
     }
+
+    getUsernameWithId(socketId) {
+        const user = this.getUsers().find((item) => item.id === socketId);
+        if (user) {
+            return user.username;
+        }
+        return 'unknown user';
+    }
 }
 
 export default new Users();

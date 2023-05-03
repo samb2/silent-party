@@ -52,3 +52,10 @@ socket.on('admin:addNewUser', function(userInfo) {
 socket.on('admin:deleteUser', function(userId) {
     $('#' + userId).remove();
 });
+
+socket.on('chat message', (data) => {
+    const { username, msg } = data;
+    const li = document.createElement('li');
+    li.textContent = `${username}: ${msg}`;
+    messages.appendChild(li);
+});
