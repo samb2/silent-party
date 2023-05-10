@@ -9,7 +9,9 @@ class Queue {
     currentTime: number = 0;
 
     loadTracks(): void {
-        this.setTracks(fs.readdirSync(this.directory));
+        const musics: string[] = fs.readdirSync(this.directory);
+        const mp3Files: string[] = musics.filter((music) => music.endsWith('.mp3'));
+        this.setTracks(mp3Files);
     }
 
     getTracks(): string[] {

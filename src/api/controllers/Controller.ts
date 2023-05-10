@@ -5,6 +5,7 @@ import queue from '../../utils/queue';
 import fs from 'fs';
 import NodeID3 from 'node-id3';
 import getMP3Duration from 'get-mp3-duration';
+import ffmpeg from 'fluent-ffmpeg';
 
 export default class Controller {
     constructor() {
@@ -16,6 +17,17 @@ export default class Controller {
         const url: string = `http://${ipAddress}:${process.env.PORT}`;
         const [qrCode] = await Promise.all([qr.toDataURL(url)]);
         return { qrCode, url };
+    }
+
+    async convertMusic(filePath: string): Promise<void> {
+        await new Promise((resolve, reject) => {
+            ffmpeg(filePath)
+                .audioBitrate('64k') // Set the desired low bitrate
+                .output(filePath)
+                .on('end', resolve)
+                .on('error', reject)
+                .run();
+        });
     }
 
     async getMusicsInfo() {
@@ -40,7 +52,9 @@ export default class Controller {
             const total_seconds: number = duration / 1000;
             const minutes: number = Math.floor(total_seconds / 60);
             const seconds: number = Math.floor(total_seconds % 60);
-            const formateDuration: string = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const formateDuration: string = `${minutes.toString().padStart(2, '0')}:${seconds
+                .toString()
+                .padStart(2, '0')}`;
             // ------------------------------------
 
             //----------- Get File Size -----------

@@ -53,8 +53,9 @@ class MainController extends Controller {
         }
     }
 
-    async upload(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async upload(req: any, res: Response, next: NextFunction): Promise<void> {
         try {
+            await this.convertMusic(req.file.path);
             res.redirect('/admin');
         } catch (e: any) {
             next(e);
