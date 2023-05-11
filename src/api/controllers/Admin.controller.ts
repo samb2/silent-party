@@ -9,7 +9,7 @@ class AdminController extends Controller {
 
             const allUser = users.getUsers();
 
-            return res.render('admin', { qrCode, url, musicsInfo, allUser });
+            return res.render('admin2', { qrCode, url, musicsInfo, allUser });
         } catch (e: any) {
             next(e);
         }
