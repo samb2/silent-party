@@ -14,24 +14,9 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href='/css/bootstrap/bootstrap.min.css'>
-    <style>
-        .container-or {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    <link rel="stylesheet" href='/css/all.min.css'>
+    <link rel="stylesheet" href='/css/admin.css'>
 
-        .horizontal-line {
-            width: 200px;
-            border-top: 2px solid black;
-            margin: 10px;
-        }
-
-        .or-text {
-            font-size: 20px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body class="text-center align-self-center m-auto">
 <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3">
@@ -50,10 +35,18 @@
                 <li class="nav-item"><a class="nav-link active" href="#"></a></li>
                 <li class="nav-item"><a class="nav-link" href="#">upload</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">users</a></li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                        upload
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal"
+                            data-bs-target="#connectModal">
+                        Connect
+                    </button>
+                </li>
             </ul>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connectModal">
-                Connect
-            </button>
         </div>
     </div>
 </nav>
@@ -71,8 +64,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 text-center align-self-center">
-            <div class="table-responsive">
-                <table class="table">
+            <div class="table-responsive bg-body-tertiary border rounded-3">
+                <table class="table table-striped">
                     <thead>
                     <tr class='text-center'>
                         <th>image</th>
@@ -113,19 +106,42 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Connect</h1>
+                <span class="modal-title fs-5" id="exampleModalLabel">Connect to party</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p> Scan QrCode for Connect to Party </p>
+                <p>make sure your device connected to the <span style='color: #0a58ca'>same network!</span></p>
+                <hr>
+                <p> Scan Qr Code for Connect to Party :</p>
                 <img src="<%= qrCode; %>" alt="QR Code">
                 <div class="container-or">
                     <div class="horizontal-line"></div>
                     <div class="or-text">or</div>
                     <div class="horizontal-line"></div>
                 </div>
-                <p> Write this url in your browser </p>
+                <p> Write this url in your browser :</p>
                 <h5><%= url; %></h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title fs-5" id="exampleModalLabel">Add Music</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div>
+                        <label for="audio">Select an audio file:</label>
+                        <input type="file" id="audio" name="audio">
+                    </div>
+                    <div>
+                        <input type="submit" value="Upload">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

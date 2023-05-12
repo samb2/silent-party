@@ -2,6 +2,7 @@ import Controller from './Controller';
 import { Response, Request, NextFunction } from 'express';
 import path from 'path';
 import fs from 'fs';
+import queue from '../../utils/queue';
 
 class MainController extends Controller {
     async index(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -55,7 +56,9 @@ class MainController extends Controller {
 
     async upload(req: any, res: Response, next: NextFunction): Promise<void> {
         try {
-            await this.convertMusic(req.file.path);
+            await this.convertMusic(req.file);
+            queue.addTrack(req.file.originalname);
+            await this.deleteTemp();
             res.redirect('/admin');
         } catch (e: any) {
             next(e);

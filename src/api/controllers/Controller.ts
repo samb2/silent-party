@@ -6,6 +6,7 @@ import fs from 'fs';
 import NodeID3 from 'node-id3';
 import getMP3Duration from 'get-mp3-duration';
 import ffmpeg from 'fluent-ffmpeg';
+import path from 'path';
 
 export default class Controller {
     constructor() {
@@ -19,14 +20,29 @@ export default class Controller {
         return { qrCode, url };
     }
 
-    async convertMusic(filePath: string): Promise<void> {
+    async convertMusic(file): Promise<void> {
         await new Promise((resolve, reject) => {
-            ffmpeg(filePath)
+            ffmpeg(file.path)
                 .audioBitrate('64k') // Set the desired low bitrate
-                .output(filePath)
+                .output('musics/' + file.originalname)
                 .on('end', resolve)
                 .on('error', reject)
                 .run();
+        });
+    }
+
+    async deleteTemp(): Promise<void> {
+        const directory = './musics/temp';
+        const files = fs.readdirSync(directory);
+        files.forEach((file) => {
+            const filePath = path.join(directory, file);
+
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                    return;
+                }
+            });
         });
     }
 

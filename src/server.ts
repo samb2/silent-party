@@ -106,11 +106,19 @@ export class Server {
 
     checkDirectory(): void {
         const musicDirectoryPath = './musics';
+        const musicMainDirectoryPath = './musics/temp';
         // Check if the directory already exists
-        if (fs.existsSync('./musics')) return;
+        if (fs.existsSync(musicDirectoryPath)) return;
+        if (fs.existsSync(musicMainDirectoryPath)) return;
 
         // If the directory doesn't exist, create it
         fs.mkdir(musicDirectoryPath, { recursive: true }, (err): void => {
+            if (err) {
+                logger.info('Failed to create directory');
+            }
+            logger.info('Music directory created successfully!');
+        });
+        fs.mkdir(musicMainDirectoryPath, { recursive: true }, (err): void => {
             if (err) {
                 logger.info('Failed to create directory');
             }
