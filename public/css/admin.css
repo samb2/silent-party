@@ -5,8 +5,20 @@ body {
 }
 
 td {
-    font-size: 12px;
+    font-size: 14px;
+    text-align: left;
     vertical-align: middle;
+}
+
+.td-middle {
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.vl {
+    border-left: 1px solid gray;
+    height: auto;
 }
 
 .container-or {

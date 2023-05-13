@@ -32,19 +32,47 @@
                     class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-5">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="#"></a></li>
-                <li class="nav-item"><a class="nav-link" href="#">upload</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">users</a></li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                        upload
-                    </button>
+                    <a class="nav-link active" href="#"></a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            <i class='fas fa-users'></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal"
-                            data-bs-target="#connectModal">
-                        Connect
-                    </button>
+                    <a class="nav-link active" href="#"></a>
+                </li>
+                <div class='vl'></div>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#settingModal">
+                        <i class='fas fa-cog'></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                        <i class='fas fa-upload'></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#connectModal">
+                        <i class='fas fa-wifi'></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"></a>
                 </li>
             </ul>
         </div>
@@ -63,14 +91,13 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 text-center align-self-center">
+        <div class="col-lg-8">
             <div class="table-responsive bg-body-tertiary border rounded-3">
                 <table class="table table-striped">
                     <thead>
-                    <tr class='text-center'>
+                    <tr>
                         <th>image</th>
                         <th>name</th>
-                        <th>artist</th>
                         <th>size</th>
                         <th>duration</th>
                     </tr>
@@ -79,19 +106,18 @@
                     <% musicsInfo.forEach((music)=>{ %>
                         <tr onclick="play(`<%= music.name; %>`)">
                             <% if(music.image){ %>
-                                <td>
+                                <td class='td-middle'>
                                     <img src="data:<%= music.image.mime; %>;base64,<%= music.image.imageBuffer.toString('base64'); %>"
                                          alt="<%= music.image.description; %>" width="50" height="50" />
                                 </td>
                             <% }else{ %>
-                                <td>
+                                <td class='td-middle'>
                                     <img src="#" width="50" height="50" />
                                 </td>
                             <% } %>
                             <td><%= music.name; %></td>
-                            <td><%= music.artist; %></td>
-                            <td><%= music.size; %> mb</td>
-                            <td><%= music.duration; %></td>
+                            <td class='td-middle'><%= music.size; %> mb</td>
+                            <td class='td-middle'><%= music.duration; %></td>
                         </tr>
                     <% }); %>
                     </tbody>
@@ -106,11 +132,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-title fs-5" id="exampleModalLabel">Connect to party</span>
+                <span class="modal-title fs-5" id="exampleModalLabel">Connect to Party</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>make sure your device connected to the <span style='color: #0a58ca'>same network!</span></p>
+                <p>make sure your device connected to the <span style='color: #0a58ca'>Same Network!</span></p>
                 <hr>
                 <p> Scan Qr Code for Connect to Party :</p>
                 <img src="<%= qrCode; %>" alt="QR Code">
@@ -119,7 +145,7 @@
                     <div class="or-text">or</div>
                     <div class="horizontal-line"></div>
                 </div>
-                <p> Write this url in your browser :</p>
+                <p> input the following address in your Browser :</p>
                 <h5><%= url; %></h5>
             </div>
         </div>
@@ -142,6 +168,27 @@
                         <input type="submit" value="Upload">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title fs-5" id="exampleModalLabel">Setting</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class='container'>
+                    <div class='row'>
+                        <div style='display: inherit'>convert musics when upload</div>
+                        <div style='display: contents' class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
