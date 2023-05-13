@@ -17,11 +17,11 @@ function getMusicName(src) {
     return musicName;
 }
 
-audio.addEventListener('play', function() {
+audio.addEventListener('play', function () {
     socket.emit('admin:playButton');
 });
 
-audio.addEventListener('pause', function() {
+audio.addEventListener('pause', function () {
     const musicInfo = {
         currentTime: audio.currentTime,
         musicName: getMusicName(audio.src),
@@ -30,26 +30,26 @@ audio.addEventListener('pause', function() {
     audio.pause();
 });
 
-audio.addEventListener('ended', function() {
+audio.addEventListener('ended', function () {
     // code to run when the audio has ended
     const musicName = getMusicName(audio.src);
     socket.emit('admin:songEnded', musicName);
 });
 
-socket.on('admin:playNextSong', function(nextMusicName) {
+socket.on('admin:playNextSong', function (nextMusicName) {
     play(nextMusicName);
 });
 
-socket.on('admin:getCurrentTime', function() {
+socket.on('admin:getCurrentTime', function () {
     const currentTime = audio.currentTime;
     socket.emit('admin:setCurrentTime', currentTime);
 });
 
-socket.on('admin:addNewUser', function(userInfo) {
-    $('#users').append(`<p id='${userInfo.id}'>${userInfo.username}</p>`);
+socket.on('admin:addNewUser', function (userInfo) {
+    $('#users').append(` <li id='${userInfo.id}'><a class='dropdown-item' href='#'>${userInfo.username}</a></li>`);
 });
 
-socket.on('admin:deleteUser', function(userId) {
+socket.on('admin:deleteUser', function (userId) {
     $('#' + userId).remove();
 });
 

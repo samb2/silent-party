@@ -59,7 +59,7 @@ class MainController extends Controller {
             await this.convertMusic(req.file);
             queue.addTrack(req.file.originalname);
             await this.deleteTemp();
-            res.redirect('/admin');
+            res.send('upload done!');
         } catch (e: any) {
             next(e);
         }
