@@ -46,11 +46,18 @@ socket.on('admin:getCurrentTime', function () {
 });
 
 socket.on('admin:addNewUser', function (userInfo) {
+    $('.dropdown-menu').show();
     $('#users').append(` <li id='${userInfo.id}'><a class='dropdown-item' href='#'>${userInfo.username}</a></li>`);
 });
 
 socket.on('admin:deleteUser', function (userId) {
     $('#' + userId).remove();
+});
+
+$('.dropdown-toggle').on('click', function (e) {
+    if ($('#users').children().length === 0) {
+        $('.dropdown-menu').hide();
+    }
 });
 
 socket.on('chat message', (data) => {
