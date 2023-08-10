@@ -7,7 +7,7 @@ import queue from '../../utils/queue';
 class MainController extends Controller {
     async index(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            return res.render('index');
+            return res.render('index2');
         } catch (e: any) {
             next(e);
         }

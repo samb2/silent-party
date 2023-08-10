@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Silent Party</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta https-equiv="Content-Security-Policy" content="default-src *;" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href='/css/bootstrap/bootstrap.min.css'>
+    <link rel="stylesheet" href='/css/index.css'>
+</head>
+<body onload="usernamePrompt()">
+
+<div class='container-fluid'>
+    <button onclick='loadTracks()' class='btn btn-lg'>Click me!</button>
+    <p>
+        <audio id="audio" autoplay>
+            <source type="audio/mpeg" class="audio-source">
+            Your browser does not support the audio element.
+        </audio>
+    </p>
+
+</div>
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-6">
+
+                <div class="card text-center">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        2 days ago
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/client/client.js"></script>
+</html>
