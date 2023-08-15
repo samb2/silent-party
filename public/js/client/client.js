@@ -1,24 +1,36 @@
 const socket = io();
 const audio = document.getElementById('audio');
+const usernameInput = document.getElementById('inputJoin');
 
-function usernamePrompt() {
-    const localUsername = localStorage.getItem('username');
-    if (localUsername === null) {
-        let username = prompt('Please enter your username');
-        if (username != null && username !== '') {
-            localStorage.setItem('username', username);
-            assignUsername(username);
-        } else {
-            usernamePrompt();
-        }
-    } else {
-        assignUsername(localUsername);
+$(window).on('load', function () {
+    const localUsername = getUsername();
+    if (localUsername !== null) {
+        usernameInput.value = localUsername;
     }
+    $('#usernameModal').modal('show');
+});
+
+function joinParty() {
+    let username = usernameInput.value;
+
+    if (username != null && username !== '') {
+        setUsername(username);
+        assignUsername(username);
+    }
+}
+
+function getUsername() {
+    return localStorage.getItem('username');
+}
+
+function setUsername(username) {
+    localStorage.setItem('username', username);
 }
 
 function assignUsername(username) {
     socket.emit('users:addUser', username);
     loadTracks();
+    $('#usernameModal').modal('hide');
 }
 
 function loadTracks() {
