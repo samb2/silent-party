@@ -1,24 +1,11 @@
-#chat2 .form-control {
-    border-color: transparent;
-}
-
-#chat2 .form-control:focus {
-    border-color: transparent;
-    box-shadow: inset 0px 0px 0px 1px transparent;
-}
-
-.divider:after,
-.divider:before {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #eee;
-}
-
 .chat-box {
     flex-grow: 1; /* Allow the chat box to grow and take available space */
     overflow-y: auto; /* Enable vertical scrolling if content exceeds available height */
-    padding: 30px; /* Add padding for spacing */
+    padding: 15px; /* Add padding for spacing */
+}
+
+.card {
+    border-bottom: none;
 }
 
 li {
@@ -62,11 +49,10 @@ li {
 }
 
 .form > button {
-    background: #333;
+    background: transparent;
     border: none;
     padding: 0 1rem;
     margin: 0.25rem;
     border-radius: 3px;
     outline: none;
-    color: #fff;
 }

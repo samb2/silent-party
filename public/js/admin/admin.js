@@ -49,6 +49,13 @@ socket.on('admin:addNewUser', function (userInfo) {
     $('#users').append(`<li id='${userInfo.id}'><a class='dropdown-item' href='#'>${userInfo.username}</a></li>`);
 });
 
+socket.on('admin:changeUser', function (userInfo) {
+    const listItem = $(`#${userInfo.id}`);
+    if (listItem.length > 0) {
+        listItem.find('a').text(userInfo.username);
+    }
+});
+
 socket.on('admin:deleteUser', function (userId) {
     $('#' + userId).remove();
 });

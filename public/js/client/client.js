@@ -81,3 +81,16 @@ socket.on('chat message', (data) => {
     li.textContent = `${username}: ${msg}`;
     messages.appendChild(li);
 });
+
+$('#muteButton').click(function () {
+    $(this).toggleClass('muted');
+    $(this).find('i').toggleClass('fa-volume-high fa-volume-mute');
+    var audioElement = document.getElementById("audio");
+    if (audioElement.muted) {
+        audioElement.muted = false;
+    } else {
+        audioElement.muted = true;
+    }
+});
+
+

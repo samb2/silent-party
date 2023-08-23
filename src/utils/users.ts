@@ -11,6 +11,20 @@ class Users {
         return this.users;
     }
 
+    checkUserExist(id) {
+        return _.some(this.getUsers(), function (item) {
+            return item.id == id;
+        });
+    }
+
+    changeUserName(id, username) {
+        _.each(this.getUsers(), function (item) {
+            if (item.id === id) {
+                item.username = username;
+            }
+        });
+    }
+
     deleteUser(socketId): void {
         this.users = _.without(
             this.getUsers(),

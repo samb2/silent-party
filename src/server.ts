@@ -42,8 +42,13 @@ export class Server {
             // ---------------- users ----------------
             socket.on('users:addUser', (username): void => {
                 const id: string = socket.id;
-                users.setUser({ id, username });
-                io.emit('admin:addNewUser', { id, username });
+                if (users.checkUserExist(id)) {
+                    users.changeUserName(id, username);
+                    io.emit('admin:changeUser', { id, username });
+                } else {
+                    users.setUser({ id, username });
+                    io.emit('admin:addNewUser', { id, username });
+                }
             });
 
             // ---------------- Admin ----------------
