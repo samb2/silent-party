@@ -68,7 +68,7 @@ export default class Controller {
             const total_seconds: number = duration / 1000;
             const minutes: number = Math.floor(total_seconds / 60);
             const seconds: number = Math.floor(total_seconds % 60);
-            const formateDuration: string = `${minutes.toString().padStart(2, '0')}:${seconds
+            const formatDuration: string = `${minutes.toString().padStart(2, '0')}:${seconds
                 .toString()
                 .padStart(2, '0')}`;
             // ------------------------------------
@@ -85,7 +85,7 @@ export default class Controller {
                     name: fileName,
                     format: fileFormat,
                     size: fileSizeInBytes,
-                    duration: formateDuration,
+                    duration: formatDuration,
                     image,
                     artist,
                 });

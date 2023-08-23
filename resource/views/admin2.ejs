@@ -44,6 +44,9 @@
                             <i class='fas fa-users'></i>
                         </button>
                         <ul class="dropdown-menu" id='users'>
+                            <% allUser.forEach(user=>{ %>
+                                <li id='<%= user.id %>'><a class='dropdown-item' href='#'><%= user.username %></a></li>
+                            <% }) %>
                         </ul>
                     </div>
                 </li>

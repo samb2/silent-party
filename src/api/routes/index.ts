@@ -13,7 +13,6 @@ router.get('/stream/:music', MainController.stream);
 router.post('/upload', multerMiddleware, MainController.upload);
 // admin
 router.get('/admin', AdminController.index);
-router.get('/admin2', AdminController.index);
 
 // Error 404
 router.all('*', (): void => {

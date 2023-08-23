@@ -46,7 +46,7 @@ socket.on('admin:getCurrentTime', function () {
 });
 
 socket.on('admin:addNewUser', function (userInfo) {
-    $('#users').append(` <li id='${userInfo.id}'><a class='dropdown-item' href='#'>${userInfo.username}</a></li>`);
+    $('#users').append(`<li id='${userInfo.id}'><a class='dropdown-item' href='#'>${userInfo.username}</a></li>`);
 });
 
 socket.on('admin:deleteUser', function (userId) {
