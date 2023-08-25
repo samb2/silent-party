@@ -47,8 +47,6 @@ export default class Controller {
     }
 
     async getMusicsInfo() {
-        // ------------ Generate QR Code ------------
-        const { qrCode, url } = await this.qrCodeGenerator();
         // ------------ get Tracks ---------------
         const files: string[] = queue.getTracks();
         const musicsInfo: any = [];
@@ -90,6 +88,6 @@ export default class Controller {
                 });
             }
         }
-        return { qrCode, url, musicsInfo };
+        return musicsInfo;
     }
 }
