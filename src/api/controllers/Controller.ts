@@ -51,7 +51,6 @@ export default class Controller {
         const { qrCode, url } = await this.qrCodeGenerator();
         // ------------ get Tracks ---------------
         const files: string[] = queue.getTracks();
-
         const musicsInfo: any = [];
 
         for (const file of files) {
@@ -77,10 +76,10 @@ export default class Controller {
             const fileSizeInBytes: string = (stats.size / 1048576).toFixed(2);
 
             //----------- Get File Format & Name -----------
-            const fileFormat: string | undefined = file.split('.').pop();
-            const fileName: string | undefined = file.split('.').shift();
-
-            if (fileFormat === 'mp3') {
+            //fileFormat = fileFormat.substring(1);
+            const fileFormat: string | undefined = path.parse(file).ext;
+            const fileName: string | undefined = path.parse(file).name;
+            if (fileFormat === '.mp3') {
                 musicsInfo.push({
                     name: fileName,
                     format: fileFormat,

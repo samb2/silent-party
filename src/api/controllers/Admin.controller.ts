@@ -8,7 +8,6 @@ class AdminController extends Controller {
             const { url, musicsInfo, qrCode } = await this.getMusicsInfo();
 
             const allUser = users.getUsers();
-            console.log(allUser);
             return res.render('admin2', { qrCode, url, musicsInfo, allUser });
         } catch (e: any) {
             next(e);
